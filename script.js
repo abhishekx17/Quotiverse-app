@@ -16,7 +16,6 @@ async function getquote() {
     } else if (
         category === "technology") {
         url = "https://api.quotable.io/quotes/random?tags=technology,famous-quotes";
-        quoteBox.style.backgroundimg = "url(download.jpg)"
 
     } else if (category !== "random") {
     } else if (
