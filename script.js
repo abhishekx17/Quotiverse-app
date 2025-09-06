@@ -2,41 +2,33 @@ const quote = document.querySelector("#quote");
 const author = document.querySelector("#author");
 const button = document.getElementById("new-quote");
 const copy = document.getElementById("copy");
-const categorySelect = document.getElementById("category");
-quoteBox = document.querySelector(".quote-box")
+const quoteBox = document.querySelector(".quote-box");
 
+const apiUrl = "https://api.api-ninjas.com/v1/quotes";
+const apiKey = "qUUXVNsNxubYBN3yLlPIYA==cTXx6WpIhLuiYBxk";
 
+async function getQuote() {
+    try {
+        const response = await fetch(apiUrl, {
+            method: "GET",
+            headers: {
+                "X-Api-Key": apiKey
+            }
+        });
 
-async function getquote() {
-    let category = categorySelect.value;
-    let url = "http://api.quotable.io/random";
+        const data = await response.json();
+        const quoteData = data[0]; 
 
-    if (category === "happiness") {
-        url = "http://api.quotable.io/random?tags=love|happiness";
-    } else if (
-        category === "technology") {
-        url = "http://api.quotable.io/random?tags=technology,famous-quotes";
-
-    } else if (category !== "random") {
-    } else if (
-        category === "history") {
-        url = "http://api.quotable.io/random?tags=history|civil-rights";
-    } else if (category !== "random") {
-        url += `?tags=${category}`;
+        quote.textContent = quoteData.quote;
+        author.textContent = `${quoteData.author}`;
+    } catch (error) {
+        quote.textContent = "Failed to load quote";
+        author.textContent = "";
+        console.error("Error fetching quote:", error);
     }
-
-    const response = await fetch(url);
-    const data = await response.json();
-
-    const quoteData = Array.isArray(data) ? data[0] : data;
-
-    quote.textContent = `${quoteData.content}`;
-    author.textContent = `– ${quoteData.author}`;
-
 }
 
-button.addEventListener("click", getquote);
-
+button.addEventListener("click", getQuote);
 
 copy.addEventListener("click", () => {
     const text = `${quote.textContent} ${author.textContent}`;
@@ -46,7 +38,6 @@ copy.addEventListener("click", () => {
     setTimeout(() => {
         copy.textContent = "copy";
     }, 2000);
-})
+});
 
-getquote();
-
+getQuote();
