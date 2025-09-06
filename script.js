@@ -9,18 +9,18 @@ quoteBox = document.querySelector(".quote-box")
 
 async function getquote() {
     let category = categorySelect.value;
-    let url = "https://api.quotable.io/random";
+    let url = "http://api.quotable.io/random";
 
     if (category === "happiness") {
-        url = "https://api.quotable.io/random?tags=love|happiness";
+        url = "http://api.quotable.io/random?tags=love|happiness";
     } else if (
         category === "technology") {
-        url = "https://api.quotable.io/random?tags=technology,famous-quotes";
+        url = "http://api.quotable.io/random?tags=technology,famous-quotes";
 
     } else if (category !== "random") {
     } else if (
         category === "history") {
-        url = "https://api.quotable.io/random?tags=history|civil-rights";
+        url = "http://api.quotable.io/random?tags=history|civil-rights";
     } else if (category !== "random") {
         url += `?tags=${category}`;
     }
